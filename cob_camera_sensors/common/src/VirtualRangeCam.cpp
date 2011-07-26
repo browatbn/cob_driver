@@ -292,7 +292,7 @@ unsigned long VirtualRangeCam::Open()
 	if ( !fs::exists( absoluteDirectoryName ) )
 	{
 		std::cerr << "ERROR - VirtualRangeCam::Open:" << std::endl;
-		std::cerr << "\t ... Path '" << absoluteDirectoryName.file_string() << "' not found" << std::endl;
+		std::cerr << "\t ... Path '" << absoluteDirectoryName.string() << "' not found" << std::endl;
 		return (ipa_CameraSensors::RET_FAILED | ipa_CameraSensors::RET_FAILED_OPEN_FILE);
 	}
 
@@ -310,7 +310,7 @@ unsigned long VirtualRangeCam::Open()
 	if ( fs::exists( absoluteDirectoryName ) )
 	{
 		std::cout << "INFO - VirtualRangeCam::Open   :" << std::endl;
-		std::cout << "\t ... Parsing directory '" << absoluteDirectoryName.directory_string() << "'" << std::endl;
+		std::cout << "\t ... Parsing directory '" << absoluteDirectoryName.string() << "'" << std::endl;
 		
 		fs::directory_iterator end_iter;
 		for ( fs::directory_iterator dir_itr( absoluteDirectoryName ); dir_itr != end_iter; ++dir_itr )
@@ -423,8 +423,8 @@ unsigned long VirtualRangeCam::Open()
 
 		if (coordinateImageCounter[extCoord] != 0 &&
 			((intensityImageCounter[extInt] != coordinateImageCounter[extCoord] &&
-			amplitudeImageCounter[extAmp] != coordinateImageCounter[extCoord]) ||
-			(coordinateImageCounter[extCoord] != rangeImageCounter[extRange])))
+			amplitudeImageCounter[extAmp] != coordinateImageCounter[extCoord]) /*||
+			(coordinateImageCounter[extCoord] != rangeImageCounter[extRange])*/))
 		{
 			std::cerr << "ERROR - VirtualRangeCam::Open:" << std::endl;
 			std::cerr << "\t ... Number of intensity, range and coordinate images must agree." << std::endl;
@@ -441,7 +441,7 @@ unsigned long VirtualRangeCam::Open()
 	else
 	{
 		std::cerr << "ERROR - VirtualRangeCam::Open():" << std::endl;
-		std::cerr << "\t ... Path '" << absoluteDirectoryName.file_string() << "' is not a directory." << std::endl;
+		std::cerr << "\t ... Path '" << absoluteDirectoryName.string() << "' is not a directory." << std::endl;
 		return ipa_CameraSensors::RET_FAILED;
 	}
 
@@ -867,7 +867,7 @@ int VirtualRangeCam::GetNumberOfImages()
 {
 	if (m_IntensityImageFileNames.size() == 0 && 
 		m_AmplitudeImageFileNames.size() == 0 &&
-		m_RangeImageFileNames.size() == 0 && 
+//		m_RangeImageFileNames.size() == 0 && 
 		m_CoordinateImageFileNames.size() == 0)
 	{
 		return 0;
@@ -877,7 +877,7 @@ int VirtualRangeCam::GetNumberOfImages()
 
 	if (m_IntensityImageFileNames.size() != 0) min = (int)std::min((float)min, (float)m_IntensityImageFileNames.size());
 	if (m_AmplitudeImageFileNames.size() != 0) min = (int)std::min((float)min, (float)m_AmplitudeImageFileNames.size());
-	if (m_RangeImageFileNames.size() != 0) min = (int)std::min((float)min, (float)m_RangeImageFileNames.size());
+//	if (m_RangeImageFileNames.size() != 0) min = (int)std::min((float)min, (float)m_RangeImageFileNames.size());
 	if (m_CoordinateImageFileNames.size() != 0) min = (int)std::min((float)min, (float)m_CoordinateImageFileNames.size());
 
 	return min;
