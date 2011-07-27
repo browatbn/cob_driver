@@ -140,7 +140,7 @@ unsigned long VirtualColorCam::Open()
 	if ( !fs::exists( absoluteDirectoryName ) )
 	{
 		std::cerr << "ERROR - VirtualColorCam::Open:" << std::endl;
-		std::cerr << "\t ... Path '" << absoluteDirectoryName.file_string() << "' not found" << std::endl;
+		std::cerr << "\t ... Path '" << absoluteDirectoryName.string() << "' not found" << std::endl;
 		return (ipa_CameraSensors::RET_FAILED | ipa_CameraSensors::RET_FAILED_OPEN_FILE);
 	}
 
@@ -149,7 +149,7 @@ unsigned long VirtualColorCam::Open()
 	if ( fs::is_directory( absoluteDirectoryName ) )
 	{
 		std::cout << "INFO - VirtualColorCam::Open:" << std::endl;
-		std::cout << "\t ... Parsing directory '" << absoluteDirectoryName.directory_string() << "'" << std::endl;;
+		std::cout << "\t ... Parsing directory '" << absoluteDirectoryName.string() << "'" << std::endl;;
 	    fs::directory_iterator end_iter;
 		for ( fs::directory_iterator dir_itr( absoluteDirectoryName ); dir_itr != end_iter; ++dir_itr )
 		{
@@ -193,7 +193,7 @@ unsigned long VirtualColorCam::Open()
 	else
 	{
 		std::cerr << "ERROR - VirtualColorCam::Open:" << std::endl;
-		std::cerr << "\t .... Path '" << absoluteDirectoryName.file_string() << "' is not a directory." << std::endl;
+		std::cerr << "\t .... Path '" << absoluteDirectoryName.string() << "' is not a directory." << std::endl;
 		return ipa_CameraSensors::RET_FAILED;
 	}
 
@@ -217,7 +217,7 @@ unsigned long VirtualColorCam::Open()
 
 int VirtualColorCam::GetNumberOfImages()
 {
-	return (int)std::min(0.0f, (float)m_ColorImageFileNames.size());
+	return (int)std::max(0.0f, (float)m_ColorImageFileNames.size());
 }
 
 unsigned long VirtualColorCam::SaveParameters(const char* filename)
